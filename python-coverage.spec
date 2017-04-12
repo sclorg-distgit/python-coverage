@@ -8,7 +8,7 @@
 Name:           %{?scl_prefix}python-coverage
 Summary:        Code coverage testing module for Python
 Version:        3.6
-Release:        1.sc1%{?dist}
+Release:        3%{?dist}
 License:        BSD and (MIT or GPLv2)
 Group:          System Environment/Libraries
 BuildRoot:      %{_tmppath}/%{pkg_name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -29,6 +29,10 @@ have been executed.
 find . -type f -exec chmod 0644 \{\} \;
 sed -i 's/\r//g' README.txt
 
+# Separate the licence from the code
+cp coverage/__init__.py license
+sed -n '/# COPYRIGHT AND LICENSE/,$p' -i license
+
 %build
 %{?scl:scl enable %{scl} "}
 %{__python} setup.py build
@@ -44,7 +48,7 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}
 
 %files
-%doc README.txt
+%doc README.txt license
 %{_bindir}/coverage
 %{_bindir}/coverage2
 %{_bindir}/coverage-2*
@@ -52,6 +56,12 @@ rm -rf %{buildroot}
 %{python_sitearch}/coverage*.egg-info/
 
 %changelog
+* Mon Jan 16 2017 Tomas Orsava <torsava@redhat.com> - 3.6-3
+- The %%license macro is not available in RHEL6, moved the license to %%doc
+
+* Mon Jan 16 2017 Tomas Orsava <torsava@redhat.com> - 3.6-2
+- Added the license text to %%license
+
 * Wed Nov 06 2013 Robert Kuska <rkuska@redhat.com> - 3.6-1
 - Update to 3.6
 

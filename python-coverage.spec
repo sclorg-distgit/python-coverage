@@ -8,8 +8,14 @@
 Name:           %{?scl_prefix}python-coverage
 Summary:        Code coverage testing module for Python
 Version:        4.4.1
-Release:        1%{?dist}
-License:        BSD and (MIT or GPLv2)
+Release:        2%{?dist}
+# jquery(MIT):
+#  coverage/htmlfiles/jquery.min.js
+# MIT or GPL:
+#  coverage/htmlfiles/jquery.debounce.min.js
+#  coverage/htmlfiles/jquery.hotkeys.js
+#  coverage/htmlfiles/jquery.isonscreen.js
+License:        ASL 2.0 and MIT and (MIT or GPL)
 Group:          System Environment/Libraries
 BuildRoot:      %{_tmppath}/%{pkg_name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL:            https://nedbatchelder.com/code/modules/coverage.html
@@ -58,6 +64,9 @@ rm -rf %{buildroot}
 %{python3_sitearch}/coverage*.egg-info/
 
 %changelog
+* Fri Jun 16 2017 Charalampos Stratakis <cstratak@redhat.com> - 4.4.1-2
+- License has changed from BSD to ASL 2.0
+
 * Thu Jun 15 2017 Charalampos Stratakis <cstratak@redhat.com> - 4.4.1-1
 - Update to 4.4.1 for rh-python36
 
